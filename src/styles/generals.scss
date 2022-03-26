@@ -1,5 +1,12 @@
 @import "./variables";
 
+.full-w{
+  width: $full-v;
+}
+.full-h{
+  height: $full-v;
+}
+
 /////////////////////////////////////////////////////////////////////////
 //  FLEXBOX  ////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
@@ -45,6 +52,38 @@
   }
 }
 
+.gap-1{
+  gap: 1rem;
+}
+.gap-12{
+  gap: 1.2rem;
+}
+.gap-15{
+  gap: 1.5rem;
+}
+.gap-17{
+  gap: 1.7rem;
+}
+.gap-2{
+  gap: 2rem;
+}
+
+.padding-1{
+  padding: 1rem;
+}
+.padding-12{
+  padding: 1.2rem;
+}
+.padding-15{
+  padding: 1.5rem;
+}
+.padding-17{
+  padding: 1.7rem;
+}
+.padding-2{
+  padding: 2rem;
+}
+
 
 /////////////////////////////////////////////////////////////////////////
 //  COLORES DE BACKGROUND  //////////////////////////////////////////////
@@ -84,6 +123,9 @@
 }
 .txt-primary{
   color: $primary;
+}
+.txt-error{
+  color: $red;
 }
 .txt-secondary{
   color: $secondary;
