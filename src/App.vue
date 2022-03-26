@@ -13,6 +13,8 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  font-size: 16px;
+  z-index: 2;
 }
 
 #nav {
@@ -27,4 +29,8 @@
     }
   }
 }
+html{
+  background: #ff4912;
+}
+
 </style>

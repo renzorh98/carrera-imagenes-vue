@@ -1,0 +1,52 @@
+@import "./variables";
+
+.bg-white{
+  background: $white;
+}
+.bg-primary{
+  background: $primary;
+}
+.bg-secondary{
+  background: $secondary;
+}
+.bg-snuff{
+  background: $snuff;
+}
+.bg-orange{
+  background: $orange;
+}
+.bg-black{
+  background: $black;
+}
+.bg-gray{
+  background: $gray;
+}
+.bg-none{
+  background: transparent;
+}
+
+.txt-white{
+  color: white;
+}
+.txt-primary{
+  color: $primary;
+}
+.txt-secondary{
+  color: $secondary;
+}
+.txt-snuff{
+  color: $snuff;
+}
+.txt-orange{
+  color: $orange;
+}
+.txt-black{
+  color: $black;
+}
+.txt-gray{
+  color: $gray;
+}
+
+.txt-bold{
+  font-weight: bold;
+}
