@@ -9,12 +9,31 @@
 }
 .flex{
   display: flex;
-}
-.block{
-  display: block;
+  &.row{
+    flex-direction: row;
+  }
+  &.column{
+    flex-direction: column;
+  }
+  &.r-row{
+    flex-direction: row-reverse;
+  }
+  &.r-column{
+    flex-direction: column-reverse;
+  }
 }
 
-.inline-flex, .flex, .block{
+.inline-flex, .flex{
+  &.nowrap{
+    flex-wrap: nowrap;
+  }
+  &.wrap{
+    flex-wrap: wrap;
+  }
+  &.wrap-r{
+    flex-wrap: wrap-reverse;
+  }
+
   &.align-start{
     align-items: flex-start;
   }
@@ -92,4 +111,17 @@
 }
 .txt-font-alt{
   font-family: $font-alt;
+}
+
+
+.clickeable{
+  cursor: pointer;
+}
+
+.clickeable:hover{
+  filter: brightness(90%);
+}
+
+.no-clickeable{
+  cursor: none;
 }

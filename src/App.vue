@@ -1,36 +1,61 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <router-view v-slot="{ Component }">
+    <component :is="Component" />
+  </router-view>
 </template>
-
 <style lang="scss">
+@import "styles/generals.scss";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  font-size: 16px;
-  z-index: 2;
 }
 
-#nav {
-  padding: 30px;
+html{
+  background: linear-gradient($orange, $primary);
+  height: $full-v;
+  width: $full-v;
+  font-size: 16px;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+p{
+  margin: 0;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+h1{
+  font-size: 6rem;
+}
+h2{
+  font-size: 5rem;
+}
+h3{
+  font-size: 4rem;
+}
+h4{
+  font-size: 3rem;
+}
+h5{
+  font-size: 2rem;
+}
+h6{
+  font-size: 1rem;
+}
+
+input{
+  border: none !important;
+  padding: 0 !important;
+  font-size: 1rem;
+  &:focus{
+    outline: none
+  }
+
+  &::placeholder{
+    color: $gray;
+    font-size: 1rem;
   }
 }
-html{
-  background: #ff4912;
-}
+
 
 </style>
