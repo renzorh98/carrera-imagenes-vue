@@ -57,5 +57,10 @@ input{
   }
 }
 
+@media (min-width: $media-screen) {
+  html{
+    font-size: 14px;
+  }
+}
 
 </style>
