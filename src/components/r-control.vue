@@ -32,6 +32,7 @@ export default defineComponent({
   border-radius: $b-radius
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04)
   height: 50px
+  background: $white
 
 
   .content-wrap

@@ -136,11 +136,6 @@ export default {
 
 <style scoped lang="sass">
 @import "src/styles/variables.scss"
-.input-control
-  font-family: $font, sans-serif
-  width: $full-v
-  height: 22px
-
 .login-form
   width: clamp(20rem, 30vw, 1000rem)
 

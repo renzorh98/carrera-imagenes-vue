@@ -4,7 +4,7 @@
   </router-view>
 </template>
 <style lang="scss">
-@import "styles/generals.scss";
+@import "styles/variables.scss";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -14,9 +14,10 @@
 }
 
 html{
-  background: linear-gradient($orange, $primary);
-  height: $full-v;
   width: $full-v;
+  height: 100%;
+  margin: 0;
+  background: linear-gradient($orange, $primary) no-repeat fixed;
   font-size: 16px;
 }
 
@@ -46,20 +47,20 @@ h6{
 input{
   border: none !important;
   padding: 0 !important;
-  font-size: 1rem;
+  font-size: 1.4rem;
   &:focus{
     outline: none
   }
 
   &::placeholder{
     color: $gray;
-    font-size: 1rem;
+    font-size: 1.4rem;
   }
 }
 
-@media (min-width: $media-screen) {
+@media (max-width: $media-screen) {
   html{
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 

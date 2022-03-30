@@ -47,6 +47,10 @@ export default defineComponent({
         return true;
       }
     },
+    loading:{
+      type: Boolean
+
+    }
   },
   setup(props) {
     const classes = computed(() => {

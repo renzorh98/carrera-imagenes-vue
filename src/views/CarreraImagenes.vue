@@ -1,5 +1,14 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="inline-flex align-center">
+    <Carrera />
   </div>
 </template>
+<script>
+import Carrera from "@/components/Carrera.vue";
+import {defineComponent} from "vue";
+
+export default defineComponent({
+  components:{Carrera}
+})
+
+</script>

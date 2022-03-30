@@ -6,7 +6,7 @@
 <script>
 import { computed, defineComponent } from "vue";
 
-let ButtonSize = [undefined, "big"];
+let ButtonSize = [undefined, "normal", "big"];
 let StateType = ["default","normal", "active", "disabled"];
 export default defineComponent({
   props: {
