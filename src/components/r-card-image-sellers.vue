@@ -4,17 +4,17 @@
       <div class="card-image full-w">
         <img alt='imagen busqueda' :src="url">
       </div>
-      <div class="card-body">
-        <p class="txt-black font-24">{{ title }}</p>
+      <div class="card-body" v-if="id != null">
+        <p class="txt-black font-24">{{ 'Opcion del Vendedor ' + (id+1) }}</p>
       </div>
-      <div class="inline-flex full-w gap-1 justify-content-center align-center">
+      <div class="card-actions inline-flex full-w gap-1 justify-content-center align-center">
         <template v-if="type==='item'">
           <r-button v-if="!disabled && !auxDisabled" class="clickeable" size="normal" >Ver</r-button>
           <r-button v-if="disabled || auxDisabled" size="normal" state="disabled" >Ver</r-button>
           <r-button v-if="!disabled && !auxDisabled" class="clickeable" size="normal" state="active" @click="selected">Seleccionar</r-button>
           <r-button v-if="disabled || auxDisabled" size="normal" state="disabled" >Seleccionar</r-button>
         </template>
-        <template v-if="type==='venta'">
+        <template v-if="type==='votar'">
           <r-button class="clickeable" size="normal">Ver</r-button>
           <r-button class="clickeable" size="normal" state="active">Votar</r-button>
         </template>
@@ -36,8 +36,8 @@ export default defineComponent({
       type: String,
       required: true
     },
-    title: {
-      type: String,
+    id: {
+      type: Number,
       default: undefined
     },
     type: {
@@ -79,11 +79,12 @@ export default defineComponent({
 
 .card-body
   width: $full-v
-  padding: 1rem 0 1rem 0
+  padding-top: 1rem
 
   p
     white-space: nowrap
     overflow: hidden
     text-overflow: ellipsis
-
+.card-actions
+  padding-top: 1rem
 </style>

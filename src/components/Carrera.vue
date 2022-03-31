@@ -1,9 +1,11 @@
 <template>
   <div class="flex column align-center">
     <r-card class="margin-2" border="thin" :background="'white'" border-color="primary">
-      <p class="txt-black txt-bold font-24">{{selectedImagesCant}} de {{sellers}} imagenes seleccionadas</p>
+      <p class="txt-black txt-bold font-24">{{ selectedImagesCant }} de {{ sellers }} imagenes seleccionadas</p>
       <r-button v-if="!isDisabled" style="margin-top: 1rem" size="normal" state="disabled">Ir a Votar</r-button>
-      <r-button v-if="isDisabled" class="clickeable" style="margin-top: 1rem" size="normal" state="active" @click="sendImages">Ir a Votar</r-button>
+      <r-button v-if="isDisabled" class="clickeable" style="margin-top: 1rem" size="normal" state="active"
+                @click="sendImages">Ir a Votar
+      </r-button>
     </r-card>
     <div class="inline-flex justify-content-center padding-2">
       <r-control icon="search" style="width: 40rem">
@@ -19,9 +21,11 @@
         <p class="txt-white font-32 txt-bold">Buscando resultados...</p>
       </div>
     </div>
-    <div v-if="!loading && imagenes.length" class="result-container inline-flex align-center wrap justify-content-center">
+    <div v-if="!loading && imagenes.length"
+         class="result-container inline-flex align-center wrap justify-content-center">
       <template v-for="(imagen, i) in imagenes" :key="i">
-        <r-card-image-sellers :disabled="isDisabled" type="item" :url="imagen.image" v-on:selectedImage="setSelectedImage">
+        <r-card-image-sellers :disabled="isDisabled" type="item" :url="imagen.image"
+                              v-on:selectedImage="setSelectedImage">
 
         </r-card-image-sellers>
       </template>
@@ -43,8 +47,8 @@ import RCard from "@/components/r-card.vue";
 
 export default defineComponent({
   name: "Carrera",
-  props:{
-    sellers:{
+  props: {
+    sellers: {
       type: Number,
       required: true
     }
@@ -59,7 +63,7 @@ export default defineComponent({
     RCard,
   },
 
-  setup(props, { emit }) {
+  setup(props, {emit}) {
     let imagenes = ref([])
     let query = ref('')
     let loading = ref(false)
@@ -92,8 +96,9 @@ export default defineComponent({
     }
 
     const setSelectedImage = (obj) => {
-        selectedImages.value.push(obj)
-        selectedImagesCant.value = selectedImages.value.length
+      obj.vendedor = selectedImagesCant.value
+      selectedImages.value.push(obj)
+      selectedImagesCant.value = selectedImages.value.length
     }
 
     const sendImages = () => {
