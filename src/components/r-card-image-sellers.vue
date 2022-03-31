@@ -1,5 +1,5 @@
 <template>
-  <r-card border="thin" background="white" border-color="primary">
+  <r-card border="thin" :background="'white'" border-color="primary">
     <div class="card-image-sellers">
       <div class="card-image full-w">
         <img alt='imagen busqueda' :src="url">
@@ -9,8 +9,10 @@
       </div>
       <div class="inline-flex full-w gap-1 justify-content-center align-center">
         <template v-if="type==='item'">
-          <r-button class="clickeable" size="normal" :state="disabled?'disabled':'default'">Ver</r-button>
-          <r-button class="clickeable" size="normal" :state="disabled?'disabled':'active'">Seleccionar</r-button>
+          <r-button v-if="!disabled && !auxDisabled" class="clickeable" size="normal" >Ver</r-button>
+          <r-button v-if="disabled || auxDisabled" size="normal" state="disabled" >Ver</r-button>
+          <r-button v-if="!disabled && !auxDisabled" class="clickeable" size="normal" state="active" @click="selected">Seleccionar</r-button>
+          <r-button v-if="disabled || auxDisabled" size="normal" state="disabled" >Seleccionar</r-button>
         </template>
         <template v-if="type==='venta'">
           <r-button class="clickeable" size="normal">Ver</r-button>
@@ -22,7 +24,7 @@
 </template>
 
 <script>
-import {defineComponent} from "vue";
+import {defineComponent, ref} from "vue";
 import RButton from "@/components/r-button";
 import RCard from "@/components/r-card";
 
@@ -46,6 +48,16 @@ export default defineComponent({
       type: Boolean,
       default: false
     }
+  },
+  emits: ['selectedImage'],
+  setup(props, { emit }){
+    let auxDisabled = ref(false)
+    const selected = () => {
+      auxDisabled.value = true
+      emit('selectedImage', {image: props.url})
+    }
+
+    return{ auxDisabled, selected }
 
   }
 

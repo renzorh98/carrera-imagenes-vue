@@ -1,7 +1,12 @@
 <template>
-  <div class="flex column">
+  <div class="flex column align-center">
+    <r-card class="margin-2" border="thin" :background="'white'" border-color="primary">
+      <p class="txt-black txt-bold font-24">{{selectedImagesCant}} de {{sellers}} imagenes seleccionadas</p>
+      <r-button v-if="!isDisabled" style="margin-top: 1rem" size="normal" state="disabled">Ir a Votar</r-button>
+      <r-button v-if="isDisabled" class="clickeable" style="margin-top: 1rem" size="normal" state="active" @click="sendImages">Ir a Votar</r-button>
+    </r-card>
     <div class="inline-flex justify-content-center padding-2">
-      <r-control icon="search" style="width: 40rem; margin-top: 3rem">
+      <r-control icon="search" style="width: 40rem">
         <input maxlength="35" class="input-control" type="text" placeholder="Ingrese una palabra para buscar imagenes"
                v-model="query">
         <r-button class="clickeable" style="margin-left: 1rem" size="normal" state="active" @click="search()">Buscar
@@ -16,8 +21,9 @@
     </div>
     <div v-if="!loading && imagenes.length" class="result-container inline-flex align-center wrap justify-content-center">
       <template v-for="(imagen, i) in imagenes" :key="i">
-        <r-card-image-sellers :disabled="disabled" type="item"
-                              :url="imagen.image"></r-card-image-sellers>
+        <r-card-image-sellers :disabled="isDisabled" type="item" :url="imagen.image" v-on:selectedImage="setSelectedImage">
+
+        </r-card-image-sellers>
       </template>
     </div>
     <div v-if="!loading && !imagenes.length" class="inline-flex align-center wrap justify-content-center">
@@ -27,26 +33,43 @@
 </template>
 
 <script>
-import {defineComponent, ref} from "vue";
+import {computed, defineComponent, ref} from "vue";
 import * as GoogleApi from "../services/googleImagesApi";
 import {GOOGLE_IMAGES_KEY} from "@/services/HOSTSERVER";
 import RCardImageSellers from "@/components/r-card-image-sellers.vue";
 import RButton from "@/components/r-button.vue";
 import RControl from "@/components/r-control.vue";
+import RCard from "@/components/r-card.vue";
 
 export default defineComponent({
   name: "Carrera",
+  props:{
+    sellers:{
+      type: Number,
+      required: true
+    }
+  },
+
+  emits: ['sendImages'],
+
   components: {
     RCardImageSellers,
     RButton,
     RControl,
+    RCard,
   },
 
-  setup() {
+  setup(props, { emit }) {
     let imagenes = ref([])
     let query = ref('')
-    let disabled = ref(false)
     let loading = ref(false)
+    let selectedImages = ref([])
+    let selectedImagesCant = ref(0)
+    let maxSelections = ref(props.sellers)
+
+    const isDisabled = computed(() => {
+      return selectedImagesCant.value === maxSelections.value;
+    })
 
     const getImagenes = async (query) => {
       await GoogleApi.get(`?key=${GOOGLE_IMAGES_KEY}&q=${query}`)
@@ -65,17 +88,32 @@ export default defineComponent({
     const search = () => {
       imagenes.value = []
       loading.value = true
-      getImagenes(query.value.trim().replace(' ', '+'))
+      getImagenes(query.value.trim().replace(/\s/g, '+'))
+    }
+
+    const setSelectedImage = (obj) => {
+        selectedImages.value.push(obj)
+        selectedImagesCant.value = selectedImages.value.length
+    }
+
+    const sendImages = () => {
+      emit('sendImages', selectedImages.value)
+
     }
 
 
     return {
       imagenes,
       query,
-      disabled,
       loading,
+      selectedImages,
+      selectedImagesCant,
+
+      isDisabled,
 
       search,
+      setSelectedImage,
+      sendImages,
     }
 
   }
