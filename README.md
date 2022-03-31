@@ -1,4 +1,4 @@
-# carrear-imagenes-vue
+# carrera-imagenes-vue
 
 ## Project setup
 ```
