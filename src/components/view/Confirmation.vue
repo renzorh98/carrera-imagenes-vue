@@ -6,7 +6,16 @@
       </div>
     </template>
     <template v-slot:body>
-      <span class="margin-1 body-text txt-black font-24">Se emitio la factura a nombre de {{name}} con id {{id}}.</span>
+      <div class="flex column">
+        <span class="margin-1 body-text txt-black font-24">Se emitio la factura a nombre de {{name}} con id {{id}}.</span>
+        <span class="margin-1 body-text txt-black font-24">Fecha de emision {{response.date}}</span>
+        <span class="margin-1 body-text txt-primary font-32 txt-bold">Items:</span>
+        <div v-for="item in response.items" :key="item.id">
+          <span class="margin-1 body-text txt-black font-24">{{item.id}} - {{item.name}}</span>
+          <span class="margin-1 body-text txt-black font-24">precio: {{item.price}}, cantidad: {{item.quantity}}, total: {{item.total}}</span>
+        </div>
+      </div>
+
     </template>
     <template v-slot:footer>
       <r-button class="margin-1 clickeable" size="normal" state="active" @click="confirm">Cerrar</r-button>
@@ -28,6 +37,10 @@ export default {
     showModal:{
       type: Boolean,
       default: false
+    },
+    response:{
+      type: Object,
+      required: true
     },
     name:{
       type: String,

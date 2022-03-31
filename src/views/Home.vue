@@ -12,7 +12,7 @@
     </div>
   </r-card>
   <div class="inline-flex align-center">
-    <Confirmation :show-modal="showModalConfirm" :id="idRes" :name="name" v-on:confirm="showModalConfirm = false"/>
+    <Confirmation :show-modal="showModalConfirm" :id="idRes" :name="name" :response="response" v-on:confirm="showModalConfirm = false"/>
     <Login :data="sellersPoints" :showModal="showModalLogin" :id="idWinner" v-on:responseService="responseService"/>
 
     <div v-if="step === 1">
@@ -61,6 +61,7 @@ export default {
     const idRes = ref()
     const name = ref('S/N')
     const pointsToWin = 20
+    const response = ref(null)
 
     const setSellers = (num) => {
       sellersPoints.value = Array(num).fill(0)
@@ -99,6 +100,7 @@ export default {
       showModalLogin.value = false
       name.value = res.data.client.name
       idRes.value = res.data.client.id
+      response.value = res.data
       showModalConfirm.value = true
       step.value = 1
     }
@@ -120,6 +122,7 @@ export default {
       name,
       pointsToWin,
       seePoints,
+      response,
 
       setSelectedImages,
       getSellers,
