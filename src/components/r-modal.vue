@@ -1,18 +1,24 @@
 <template>
   <div class="modal-mask" v-if="show">
-    <div class="modal-wrapper">
-      <div class="modal-container">
-        <div>
-          <slot name="header"></slot>
-        </div>
-        <div>
-          <slot name="body"></slot>
-        </div>
-        <div>
-          <slot name="footer"></slot>
+    <template v-if="image">
+      <slot name="image"></slot>
+    </template>
+    <template v-if="!image">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div>
+            <slot name="header"></slot>
+          </div>
+          <div>
+            <slot name="body"></slot>
+          </div>
+          <div>
+            <slot name="footer"></slot>
+          </div>
         </div>
       </div>
-    </div>
+    </template>
+
   </div>
 </template>
 <script>
@@ -20,6 +26,10 @@ import {defineComponent} from "vue";
 
 export default defineComponent({
   props: {
+    image: {
+      type: Boolean,
+      default: false
+    },
     show: {
       type: Boolean,
       default: false
@@ -55,9 +65,9 @@ export default defineComponent({
 
 @media screen and (max-width: $media-screen)
   .modal-container
-    width: 315px
+    min-width: 315px
 
 @media screen and (min-width: $media-screen)
   .modal-container
-    width: 570px
+   min-width: 570px
 </style>

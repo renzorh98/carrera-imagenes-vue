@@ -40,11 +40,11 @@ export default defineComponent({
   },
   emits: ['setNumSellers'],
   setup(props, {emit}) {
-    let error = ref(false)
-    let numSellers = ref(null)
+    const error = ref(false)
+    const numSellers = ref(null)
 
     const sendNumSellers = () => {
-      emit('setNumSellers', numSellers)
+      emit('setNumSellers', numSellers.value)
     }
     const buttonAvailable = computed(() => {
       return (!error.value && numSellers.value && numSellers.value > 1)

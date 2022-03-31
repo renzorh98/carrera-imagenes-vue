@@ -38,7 +38,7 @@
 
 <script>
 import {computed, defineComponent, ref} from "vue";
-import * as GoogleApi from "../services/googleImagesApi";
+import * as GoogleApi from "../../services/googleImagesApi";
 import {GOOGLE_IMAGES_KEY} from "@/services/HOSTSERVER";
 import RCardImageSellers from "@/components/r-card-image-sellers.vue";
 import RButton from "@/components/r-button.vue";
@@ -64,12 +64,12 @@ export default defineComponent({
   },
 
   setup(props, {emit}) {
-    let imagenes = ref([])
-    let query = ref('')
-    let loading = ref(false)
-    let selectedImages = ref([])
-    let selectedImagesCant = ref(0)
-    let maxSelections = ref(props.sellers)
+    const imagenes = ref([])
+    const query = ref('')
+    const loading = ref(false)
+    const selectedImages = ref([])
+    const selectedImagesCant = ref(0)
+    const maxSelections = ref(props.sellers)
 
     const isDisabled = computed(() => {
       return selectedImagesCant.value === maxSelections.value;
