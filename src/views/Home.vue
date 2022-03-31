@@ -1,7 +1,18 @@
 <template>
-  <Confirmation :show-modal="showModalConfirm" :id="idRes" :name="name" v-on:confirm="showModalConfirm = false"/>
-
+  <r-card v-if="step === 2 || step === 3" class="margin-1" border="thin" :background="'white'" border-color="primary">
+    <div class="flex row align-center justify-content-center gap-1">
+      <template v-if="seePoints">
+        <template v-for="(seller, index) in sellersPoints" :key="index">
+          <p class="font-14 txt-black txt-bold">
+            Vendedor {{ index + 1 }}: {{ seller }} puntos, a {{ pointsToWin - seller }} puntos de ganar.
+          </p>
+        </template>
+      </template>
+      <r-button class="clickeable" size="normal" state="active" @click="seePoints = !seePoints">Puntajes</r-button>
+    </div>
+  </r-card>
   <div class="inline-flex align-center">
+    <Confirmation :show-modal="showModalConfirm" :id="idRes" :name="name" v-on:confirm="showModalConfirm = false"/>
     <Login :data="sellersPoints" :showModal="showModalLogin" :id="idWinner" v-on:responseService="responseService"/>
 
     <div v-if="step === 1">
@@ -11,7 +22,7 @@
       <Race :sellers="sellers" v-on:sendImages="setSelectedImages"/>
     </div>
     <div v-if="step === 3">
-      <Votes :selectedImages="selectedImages" v-on:sendVote="getVote" />
+      <Votes :selectedImages="selectedImages" v-on:sendVote="getVote"/>
     </div>
   </div>
 </template>
@@ -24,23 +35,28 @@ import Votes from "@/components/view/Votes.vue";
 import Login from "@/components/view/Login.vue";
 import Confirmation from "@/components/view/Confirmation.vue";
 import {ref} from "vue";
+import RCard from "@/components/r-card";
+import RButton from "@/components/r-button";
 
 export default {
   name: 'Home',
   components: {
+    RButton,
+    RCard,
     Start,
     Race,
     Votes,
     Login,
     Confirmation,
   },
-  setup(){
+  setup() {
     const step = ref(1)
     const sellers = ref(0)
     const sellersPoints = ref([])
     const selectedImages = ref([])
     const showModalConfirm = ref(false)
     const showModalLogin = ref(false)
+    const seePoints = ref(false)
     const idWinner = ref(-1)
     const idRes = ref()
     const name = ref('S/N')
@@ -52,8 +68,10 @@ export default {
     }
 
     const evalWinner = () => {
-      let id = sellersPoints.value.findIndex((value) => { return value >= pointsToWin})
-      if(id !== -1){
+      let id = sellersPoints.value.findIndex((value) => {
+        return value >= pointsToWin
+      })
+      if (id !== -1) {
         return {bool: true, id: id}
       }
       return {bool: false, id: id}
@@ -68,11 +86,11 @@ export default {
     const getVote = (id) => {
       sellersPoints.value[id] = sellersPoints.value[id] + 3
       let res = evalWinner()
-      if(res.bool){
-        console.log('ganador'+res.id)
+      if (res.bool) {
+        console.log('ganador' + res.id)
         showModalLogin.value = true
         idWinner.value = res.id
-      }else{
+      } else {
         step.value = 2
       }
     }
@@ -90,7 +108,7 @@ export default {
       step.value++
     }
 
-    return{
+    return {
       step,
       sellers,
       sellersPoints,
@@ -100,6 +118,8 @@ export default {
       idWinner,
       idRes,
       name,
+      pointsToWin,
+      seePoints,
 
       setSelectedImages,
       getSellers,
@@ -110,4 +130,4 @@ export default {
   }
 }
 </script>
-<style lang="scss" src="../styles/generals.scss" />
+<style lang="scss" src="../styles/generals.scss"/>
